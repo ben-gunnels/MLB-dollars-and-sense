@@ -1,0 +1,61 @@
+﻿@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div style="margin-top: 4rem;">
+    <div>
+        <strong>Sources: </strong>
+        <p>
+            The MLB statistical data was scraped and processed from <a href="https://www.baseball-reference.com/">Baseball Reference</a>. The salary data was taken from Cot's Baseball Contracts <a href="https://legacy.baseballprospectus.com/compensation/cots/">Cot's</a>.
+        </p>
+    </div>
+    <div>
+        <strong class="text-center">Methodology: </strong>
+        <p>
+            Currently active MLB players were scraped from Baseball Reference through their all players page: <a href="https://www.baseball-reference.com/players/">All Players.</a> 
+            The players are listed alphabetically with currently active players (as of 2024) in bold text. These players, along with the links to their player page were saved. 
+            For each player, either their standard batting or standard pitching table was scraped and their yearly statistical values were stored according to their year. The statistics included
+            WAR, batting average, home runs, wins, earned run average and strikeouts among other basic statistics. Yearly data was only scraped for the years 2022-2024. This was done as a means to ensure 
+            higher completeness due to the constraint of the players being currently active.
+        </p>
+        <p>
+            The statistical data was then merged with salary information from the Cot's player salary data. Cot's is a clearinghouse for MLB salary and payroll and provides excel sheets for player salary data on MLB's Opening Day.
+            The data was robust, but any incomplete data was replaced with the yearly league minimum salary from the corresponding year. This was a fair but imperfect assumption. If a player did not have a salary on opening day,
+            there was a high likelihood that he was called up from the minor leagues during the year and would earn the league minimum salary. 
+        </p>
+        <p>
+            To attain player value, the statistical data was divided by the salary data player-wise and year-wise. This gave a value of statistic/dollar (e.g. WAR/$). For each statistical category, and the derivative categories
+            relative to salary, the z-score was computed ((mean - data) / standard deviation). For certain categories (ERA, batter strikeouts) the sign was inverted to signal that a negative z-score was a good thing.
+        </p>
+    </div>
+    <div>
+        <strong class="text-center">How to Interpet the Data: </strong>
+        <p>
+            The data is presented as the percentile that a player ranked according to that statistic for a given year relative to his peers. The color corresponds to the percentile ranking where 
+            light-green corresponds to a player in the 99th percentile and dark-red corresponds to a player in the 1st percentile. For batters, the aggregated data that a player was compared to was limited to players
+            who had a significant sample size of over 100 at-bats. For pitchers, the threshold was 20 innings pitched. This helped to combat some of the anomalies or outliers that may be present in data of small sample-size. 
+        </p>
+    </div>
+    <div>
+        <strong class="text-center">Special Notes: </strong>
+        <p>
+            Some notable players such as Shohei Ohtani and Michael Lorenzen had standard tables for both pitching and hitting
+            and these cases had to be handled specially. For Ohtani, only the batting data was taken, and for Lorenzen only the pitching. A future developer could find a way to seamlessly integrate both the batting and pitching data 
+            for Ohtani, but that was beyond the scope of this developer.
+        </p>
+    </div>
+    <div>
+        <strong class="text-center">Acknowledgements: </strong>
+        <p>
+            Credit to Baseball Reference and Cot's for supplying the data used for this project. 
+            Thank you to Luke Gunnels for feedback on methodology. 
+        </p>
+
+
+    </div>
+
+
+</div>

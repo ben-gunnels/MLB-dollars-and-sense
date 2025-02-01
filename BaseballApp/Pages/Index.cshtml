@@ -1,0 +1,113 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@{
+    var batterScoreKeys = new List<string>
+  {
+      "b_war_score", "b_batting_avg_score","b_onbase_perc_score", "b_slugging_perc_score", "b_onbase_plus_slugging_score", "b_onbase_plus_slugging_plus_score", "b_rbat_plus_score", "b_tb_score",
+      "b_gidp_score", "b_hbp_score", "b_sf_score", "b_ibb_score", "b_war_per_dollar_score", "b_h_per_dollar_score",
+      "b_hr_per_dollar_score", "b_doubles_per_dollar_score","b_triples_per_dollar_score", "b_sb_per_dollar_score", "b_bb_per_dollar_score", 
+      "b_tb_per_dollar_score", "b_games_per_dollar_score", "ops_plus_per_dollar_score"
+  };
+  
+  var batterColumnLabels = new List<string>
+  {
+      "WAR", "AVG","OBP", "SLG", "OPS", "OPS+", "RBAT+", "TB",
+      "GIDP", "HBP", "SF", "IBB", "WAR/$", "H/$",
+      "HR/$", "2B/$","3B/$", "SB/$", "BB/$", 
+      "TB/$", "G/$", "OPS+/$"
+  };
+
+  // Create a list of keys for the pitcher statistics
+  var pitcherScoreKeys = new List<string>
+  {
+      "p_war_score", "p_w_score", "p_win_loss_perc_score", "p_earned_run_avg_score", "p_g_score", "p_cg_score", "p_ip_score",
+      "p_earned_run_avg_plus_score", "p_fip_score", "p_whip_score", "p_hits_per_nine_score", "p_hr_per_nine_score",
+      "p_bb_per_nine_score", "p_so_per_nine_score", "p_strikeouts_per_base_on_balls_score",
+      "p_war_per_dollar_score", "p_w_per_dollar_score", "p_ip_per_dollar_score", "p_so_per_dollar_score",
+      "p_so_per_nine_per_dollar_score", "p_earned_run_avg_plus_per_dollar_score"
+  };
+
+    var pitcherColumnLabels = new List<string>
+    {
+      "WAR", "W", "WL%", "ERA", "G", "CG", "IP", "ERA+", "FIP", "WHIP", "H9",
+      "HR9", "BB9", "SO9", "SO/BB", "WAR/$", "W/$", "IP/$", "SO/$", "SO/9", "ERA+/$"
+    };
+}
+
+<h1 class="display-4">Explore Baseball Player Values</h1>
+<div class="text-center" style="margin-top: 4rem;">
+    <strong>Some of the most valuable hitters by WAR/Dollar in 2024 were:</strong>
+    @if (Model.TopBatters != null && Model.TopBatters.Count > 0)
+    {
+        <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+        <thead style="position: sticky; top: 0; background-color: #f2f2f2;">
+            <tr >
+                <th style="width: 100px;">Player</th>
+                @foreach (string label in batterColumnLabels)
+                {
+                    <th style="width:40px; color: black;">@label</th>  <!-- Add headers dynamically if needed -->
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var batter in Model.TopBatters)
+            {
+                <tr class="playerTableRow">
+                    <td style="width: 40px; text-align: center; font-size: 14px;">@DataPresentationHelper.CapitalizeName(batter.Name)</td>
+                    @foreach (string key in batterScoreKeys)
+                    {
+                    double score = (double)JsonHelper.GetFloatFromJsonElement(batter.PlayerYear[key]);
+                    double[] colors = DataPresentationHelper.ColorData(score);
+                    double red = colors[0];
+                    double green = colors[1];
+
+                    <td style="width: 40px; text-align: center; font-size: 14px; background-color: rgb(@red, @green, 0);">
+                        @Math.Round(DataPresentationHelper.ZScoreToPercentile(score)*100, 0)
+                    </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
+    <div class="text-center" style="margin-top: 2rem;">
+        <strong>Some of the most valuable pitchers by WAR/Dollar in 2024 were:</strong>
+    </div>
+    @if (Model.TopPitchers!= null && Model.TopPitchers.Count > 0)
+    {
+        <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+        <thead style="position: sticky; top: 0; background-color: #f2f2f2;">
+            <tr >
+                <th style="width: 100px;">Player</th>
+                @foreach (string label in pitcherColumnLabels)
+                {
+                    <th style="width:40px; color: black;">@label</th>  <!-- Add headers dynamically if needed -->
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pitcher in Model.TopPitchers)
+            {
+                <tr class="playerTableRow">
+                    <td style="width: 40px; text-align: center; font-size: 14px;">@DataPresentationHelper.CapitalizeName(pitcher.Name)</td>
+                    @foreach (string key in pitcherScoreKeys)
+                    {
+                    double score = (double)JsonHelper.GetFloatFromJsonElement(pitcher.PlayerYear[key]);
+                    double[] colors = DataPresentationHelper.ColorData(score);
+                    double red = colors[0];
+                    double green = colors[1];
+
+                    <td style="width: 40px; text-align: center; font-size: 14px; background-color: rgb(@red, @green, 0);">
+                        @Math.Round(DataPresentationHelper.ZScoreToPercentile(score)*100, 0)
+                    </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
+</div>

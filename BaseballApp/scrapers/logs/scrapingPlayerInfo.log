@@ -1,0 +1,12 @@
+2025-01-28 11:10:12,733 Loading player links. 1738091412.7330909
+2025-01-28 11:10:12,733 Size of players before popping 1830
+2025-01-28 11:10:12,733 Loading player salary dataframes @ 1738091412.7330909
+2025-01-28 11:10:17,098 Player salary dataframes loaded successfully, 4.365570545196533s elapsed.
+2025-01-28 11:10:17,192 Size of players after popping 1
+2025-01-28 11:10:17,207 Started at 1738091417.207984
+2025-01-28 11:10:17,207 Starting new HTTPS connection (1): www.baseball-reference.com:443
+2025-01-28 11:10:17,348 https://www.baseball-reference.com:443 "GET /players/z/zuniggu01.shtml HTTP/1.1" 200 None
+2025-01-28 11:10:17,489 Player guillo zuñiga not found in Cots data for 2023. Defaulting to rookie salary.
+2025-01-28 11:10:17,489 Player guillo zuñiga not found in Cots data for 2024. Defaulting to rookie salary.
+2025-01-28 11:10:22,493 Player info for all players written to JSON file.
+2025-01-28 11:10:22,493 Completed after a duration of 0.0880987564722697m

@@ -1,0 +1,4 @@
+{
+    "dotnet.defaultSolution": "BaseballApp.sln",
+    "editor.acceptSuggestionOnCommitCharacter": false
+}
