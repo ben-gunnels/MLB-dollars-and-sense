@@ -34,7 +34,7 @@
     var pitcherColumnLabels = new List<string>
     {
       "WAR", "W", "WL%", "ERA", "G", "CG", "IP", "ERA+", "FIP", "WHIP", "H9",
-      "HR9", "BB9", "SO9", "SO/BB", "WAR/$", "W/$", "IP/$", "SO/$", "SO/9", "ERA+/$"
+      "HR9", "BB9", "SO9", "SO/BB", "WAR/$", "W/$", "IP/$", "SO/$", "SO9/$", "ERA+/$"
     };
 }
 <h1>Search for an active player</h1>
@@ -84,37 +84,38 @@
 }
 else if (Model.Pitcher != null && Model.Pitcher.Count > 0)
 {
-    <h3>Search Results</h3>
-      <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
-      <thead style="position: sticky; top: 0; background-color: #f2f2f2;">
-          <tr >
-              <th style="width: 40px;">Year</th>
-              @foreach (string label in pitcherColumnLabels)
-              {
-                  <th style="width:40px; color: black;">@label</th>  <!-- Add headers dynamically if needed -->
-              }
-          </tr>
-      </thead>
-      <tbody>
-        @foreach (var pitcher in Model.Pitcher)
-        {
-            <tr class="playerTableRow">
-                <td style="width: 40px; text-align: center; font-size: 14px;">@pitcher.Year</td>
-                @foreach (string key in pitcherScoreKeys)
-                {
-                  double score = Math.Round((double)JsonHelper.GetFloatFromJsonElement(pitcher.PlayerYear[key]), 1);
-                  double[] colors = DataPresentationHelper.ColorData(score);
-                  double red = colors[0];
-                  double green = colors[1];
+    <h3 style="margin-top: 4rem;">Search Results</h3>
+    <h3 style="margin-top: 4rem">@DataPresentationHelper.CapitalizeName(Model.Pitcher[0].Name)</h3>
+    <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+    <thead style="position: sticky; top: 0; background-color: #f2f2f2;">
+        <tr >
+            <th style="width: 40px;">Year</th>
+            @foreach (string label in pitcherColumnLabels)
+            {
+                <th style="width:40px; color: black;">@label</th>  <!-- Add headers dynamically if needed -->
+            }
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var pitcher in Model.Pitcher)
+    {
+        <tr class="playerTableRow">
+            <td style="width: 40px; text-align: center; font-size: 14px;">@pitcher.Year</td>
+            @foreach (string key in pitcherScoreKeys)
+            {
+                double score = Math.Round((double)JsonHelper.GetFloatFromJsonElement(pitcher.PlayerYear[key]), 1);
+                double[] colors = DataPresentationHelper.ColorData(score);
+                double red = colors[0];
+                double green = colors[1];
 
-                  <td style="width: 40px; text-align: center; font-size: 14px; background-color: rgb(@red, @green, 0);">
-                      @Math.Round(DataPresentationHelper.ZScoreToPercentile(score)*100, 0)
-                  </td>
-                }
-            </tr>
-        }
-      </tbody>
-      </table>
+                <td style="width: 40px; text-align: center; font-size: 14px; background-color: rgb(@red, @green, 0);">
+                    @Math.Round(DataPresentationHelper.ZScoreToPercentile(score)*100, 0)
+                </td>
+            }
+        </tr>
+    }
+    </tbody>
+    </table>
 } else 
 {
   <p>No players found for '@Model.PlayerName'</p>
