@@ -273,3 +273,4 @@ c:\Users\bengu\OneDrive\Documents\research\BaseballAavApp\BaseballApp\obj\Debug\
 c:\Users\bengu\OneDrive\Documents\research\BaseballAavApp\BaseballApp\obj\Debug\net9.0\compressed\kgtwvot5h5-92ldrs7fhd.gz
 c:\Users\bengu\OneDrive\Documents\research\BaseballAavApp\BaseballApp\bin\Debug\net9.0\scrapers\static_data\worst_batters_2024.json
 c:\Users\bengu\OneDrive\Documents\research\BaseballAavApp\BaseballApp\bin\Debug\net9.0\scrapers\static_data\worst_pitchers_2024.json
+c:\Users\bengu\OneDrive\Documents\research\BaseballAavApp\BaseballApp\obj\Debug\net9.0\BaseballApp.sourcelink.json
